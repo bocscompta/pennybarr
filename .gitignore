@@ -1,0 +1,53 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment variables
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local data
+dolibarr/
+docker/
+migration/
+supabase/.temp/
+supabase/migrations/
+.mcp.json
+
+# Development tools & config
+.bmad/
+.claude/
+CLAUDE.md
+
+# Legacy / reference files
+compta-app/
+Pennylane page content/
+PENNYLANE_ANALYSIS.md
+netlify.toml
+_bmad-output/
+public/assets.pennylane.com/
+public/css/

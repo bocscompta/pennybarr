@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  dolibarr-db:
+    image: mariadb:10.6
+    container_name: dolibarr-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
+      MYSQL_DATABASE: dolibarr
+      MYSQL_USER: ${MYSQL_USER:-dolibarr}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme}
+    volumes:
+      - dolibarr-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-changeme}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  dolibarr:
+    image: dolibarr/dolibarr:19
+    container_name: dolibarr
+    depends_on:
+      dolibarr-db:
+        condition: service_healthy
+    environment:
+      DOLI_DB_HOST: dolibarr-db
+      DOLI_DB_USER: ${MYSQL_USER:-dolibarr}
+      DOLI_DB_PASSWORD: ${MYSQL_PASSWORD:-changeme}
+      DOLI_DB_NAME: dolibarr
+      DOLI_ADMIN_LOGIN: ${DOLIBARR_ADMIN_LOGIN:-admin}
+      DOLI_ADMIN_PASSWORD: ${DOLIBARR_ADMIN_PASSWORD:-changeme}
+      DOLI_URL_ROOT: http://localhost:8080
+      DOLI_MODULES: modSociete,modFacture,modFournisseur,modBanque,modProduct,modService,modApi
+    ports:
+      - "8080:80"
+    volumes:
+      - dolibarr-documents:/var/documents
+      - dolibarr-html:/var/www/html/custom
+    restart: unless-stopped
+
+volumes:
+  dolibarr-db-data:
+  dolibarr-documents:
+  dolibarr-html:

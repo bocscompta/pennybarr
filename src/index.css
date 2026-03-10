@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Pennylane Design Tokens */
+  --ui-white: #FFFFFF;
+  --ui-primary-50: #D9EFEB;
+  --ui-primary-100: #B3DED7;
+  --ui-primary-200: #8ECEC2;
+  --ui-primary-300: #68BDAE;
+  --ui-primary-400: #42AD9A;
+  --ui-primary-500: #489993;
+  --ui-primary-600: #338585;
+  --ui-primary-700: #006666;
+  --ui-primary-800: #0F5757;
+  --ui-primary-900: #003D3D;
+
+  --ui-secondary-25: #FAFAFB;
+  --ui-secondary-50: #F2F2F3;
+  --ui-secondary-100: #E4E5E7;
+  --ui-secondary-200: #D6D9DB;
+  --ui-secondary-300: #BABFC5;
+  --ui-secondary-400: #9EA5AD;
+  --ui-secondary-500: #6C767F;
+  --ui-secondary-600: #4E575F;
+  --ui-secondary-700: #39434C;
+  --ui-secondary-800: #22292F;
+  --ui-secondary-900: #141A1F;
+
+  --ui-success-500: #23A84B;
+  --ui-warning-500: #FF993F;
+  --ui-danger-500: #D8314A;
+  --ui-info-500: #1C73FF;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--ui-secondary-25);
+  color: var(--ui-secondary-900);
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}
