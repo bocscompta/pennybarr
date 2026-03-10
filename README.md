@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="public/favicon.svg" width="80" alt="Pennybarr logo" />
+  <img src="pennybarr.svg" width="400" alt="Pennybarr" />
 </p>
-
-<h1 align="center">Pennybarr</h1>
 
 <p align="center">
   <strong>L'interface comptable moderne que Dolibarr méritait.</strong>
@@ -200,7 +198,6 @@ Pennybarr propose **deux modes** accessibles via un toggle, inspirés de Pennyla
 
 - [Node.js](https://nodejs.org) >= 20
 - [Docker](https://www.docker.com) et Docker Compose
-- Un compte [Supabase](https://supabase.com) (gratuit)
 
 ### Installation
 
@@ -212,16 +209,53 @@ cd pennybarr
 # 2. Installer les dépendances
 npm install
 
-# 3. Lancer Dolibarr (backend)
+# 3. Lancer Supabase en local (recommandé)
+docker compose -f supabase/docker-compose.yml up -d
+
+# 4. Lancer Dolibarr (backend ERP)
 docker compose up -d
 
-# 4. Lancer le frontend
+# 5. Configurer l'environnement
+cp .env.example .env
+# Les valeurs par défaut fonctionnent avec Supabase local
+
+# 6. Lancer le frontend
 npm run dev
 ```
 
 L'application est accessible sur `http://localhost:5174`.
 
-Dolibarr tourne sur `http://localhost:8080` (admin / changeme).
+### Supabase self-hosted (recommandé)
+
+Pennybarr utilise **Supabase self-hosted** pour la base de données, l'authentification et les Edge Functions. C'est la méthode recommandée — pas besoin de compte cloud.
+
+```bash
+# Lancer Supabase local avec données de démo
+docker compose -f supabase/docker-compose.yml up -d
+
+# Les données de démo sont automatiquement chargées (seed.sql)
+# Supabase Studio : http://localhost:3100
+# API REST (Kong) : http://localhost:9100
+# DB directe      : localhost:5434
+```
+
+Le fichier `supabase/seed.sql` contient des données de démonstration réalistes :
+- Entreprise "Boulangerie Dupont" (Paris)
+- Plan comptable PCG complet (25+ comptes)
+- 4 journaux comptables (Achats, Ventes, Banque, OD)
+- 2 comptes bancaires (BNP Paribas, Qonto)
+- 12 tiers (clients et fournisseurs : OVH, URSSAF, Orange, etc.)
+- 5 produits et services
+- 6 factures avec lignes (brouillon, envoyée, payée)
+- 12 transactions bancaires
+- Ecritures comptables avec lettrage
+
+**Identifiants par défaut :**
+- Supabase Studio : `http://localhost:3100`
+- API URL : `http://localhost:9100`
+- Anon Key : voir `.env.example`
+
+> **Alternative cloud** : Vous pouvez aussi utiliser [supabase.com](https://supabase.com) (gratuit) et exécuter les migrations dans `supabase/migrations/`.
 
 ### Configuration Dolibarr
 
@@ -233,15 +267,9 @@ Au premier lancement, activez les modules nécessaires dans Dolibarr :
 - Produits/Services
 - API REST
 
+Dolibarr tourne sur `http://localhost:8080` (admin / changeme).
+
 Générez une clé API dans **Accueil > Configuration > Utilisateurs > admin > API**.
-
-### Configuration Supabase (optionnel)
-
-Pour les fonctionnalités avancées (plan comptable complet, sync Pennylane, vault) :
-
-1. Créez un projet sur [supabase.com](https://supabase.com)
-2. Exécutez les migrations dans `supabase/migrations/` dans l'ordre chronologique
-3. Mettez à jour `src/lib/supabase.ts` avec vos clés
 
 ### Configuration Pennylane (optionnel)
 
@@ -303,6 +331,9 @@ pennybarr/
 │   ├── seed-ged-folders.mjs
 │   └── ...
 ├── supabase/
+│   ├── docker-compose.yml         # Supabase self-hosted (PostgreSQL + Auth + REST + Studio)
+│   ├── kong.yml                   # API gateway config
+│   ├── seed.sql                   # Données de démo réalistes (PCG, factures, tiers...)
 │   ├── functions/                 # Edge Functions
 │   │   ├── pennylane-proxy/       # Proxy API Pennylane
 │   │   └── search-siret/          # Recherche SIRET entreprise

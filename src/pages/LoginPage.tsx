@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
-import { Mail, ArrowLeft, Loader2, ShieldCheck } from 'lucide-react'
+import { Mail, ArrowLeft, Loader2 } from 'lucide-react'
 import { sendOtpCode, verifyOtpCode } from '../services/authService'
 
 type Step = 'email' | 'otp'
@@ -128,18 +128,7 @@ export default function LoginPage() {
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <div
-            className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4"
-            style={{ backgroundColor: '#F0F5F4' }}
-          >
-            <ShieldCheck size={28} style={{ color: '#006666' }} />
-          </div>
-          <h1
-            className="text-2xl font-semibold"
-            style={{ color: '#141A1F' }}
-          >
-            Pennybarr
-          </h1>
+          <img src="/pennybarr-logo-dark.svg" alt="Pennybarr" className="h-8 mx-auto mb-4" />
           <p className="mt-1 text-sm" style={{ color: '#6C767F' }}>
             Comptabilite simplifiee
           </p>

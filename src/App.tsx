@@ -473,10 +473,8 @@ function App() {
       {mode === 'comptabilite' && (
         <aside className="w-14 flex flex-col items-center py-3" style={{ backgroundColor: '#141A1F' }}>
           {/* Logo */}
-          <div className="mb-4">
-            <div className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#006666' }}></div>
-            </div>
+          <div className="mb-4 px-1">
+            <img src="/pennybarr-logo.svg" alt="Pennybarr" className="h-5 w-auto" />
           </div>
 
           {/* Main icons */}
@@ -868,10 +866,7 @@ function App() {
       <aside className="w-60 flex flex-col z-50" style={{ backgroundColor: '#141A1F' }}>
         {/* Logo */}
         <div className="p-4 flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#006666' }}></div>
-          </div>
-          <span className="text-white font-semibold text-lg">pennybarr</span>
+          <img src="/pennybarr-logo.svg" alt="Pennybarr" className="h-6"  />
         </div>
 
         {/* Toggle */}
