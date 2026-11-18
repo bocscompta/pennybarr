@@ -35,7 +35,6 @@ dolibarr/
 docker/
 migration/
 supabase/.temp/
-supabase/migrations/
 .mcp.json
 
 # Development tools & config
